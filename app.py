@@ -135,8 +135,10 @@ def articles():
 def webhook():
     if request.method == 'POST':
         r = request.get_json()
+        chat_id=r['message']['chat']['id']
+        text=r['message']['text']
         global last_msg
-        last_msg=r['message']['text']
+        last_msg=text
         if r['message']['text'] == 'testa':
             send_message(chat_id,'Yra')
         return make_response('',200)
