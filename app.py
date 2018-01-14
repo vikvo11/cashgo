@@ -111,6 +111,7 @@ def login():
 @app.route('/dashbord',methods=['GET','POST'])
 def dashbord():
     #msg = py()
+    add_costs()
     msg = mysqls('costs')
     #keys = dict(msg[0])
     #b=msg.keys()
@@ -146,7 +147,7 @@ def webhook():
         pattern =r'/\w+'
         if re.search(pattern,text):
             price = get_price(parc_text(text))
-            add_costs(costs,text,100)
+            #add_costs()
             send_message(chat_id,price)
         return jsonify(r)
 
@@ -181,14 +182,17 @@ def mysqls(table):
     cur.close()
     return articles
 
-def add_costs(table,title,cost):
+def add_costs():
     #title = form.title.data
     #body = form.body.data
-
+    table='costs'
+    title='test'
+    cost=100
     #Create cursor
     cur = mysql.connection.cursor()
     #Execute query
     cur.execute("INSERT INTO {}(title,cost,year,month) VALUES(%s,%s,%s,%s)".format(table),(title,cost,2018,1))
+    #result = cur.execute("SELECT * FROM {} WHERE id=%s".format('articles'),[username])
     #Commit ot db
     mysql.connection.commit()
     #Close connection
