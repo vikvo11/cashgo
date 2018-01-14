@@ -111,7 +111,10 @@ def login():
 @app.route('/dashbord',methods=['GET','POST'])
 def dashbord():
     #msg = py()
-    add_costs()
+    add_costs('costs','test123',100)
+    #table='costs'
+    #title='test'
+    #cost=100
     msg = mysqls('costs')
     #keys = dict(msg[0])
     #b=msg.keys()
@@ -182,12 +185,12 @@ def mysqls(table):
     cur.close()
     return articles
 
-def add_costs():
+def add_costs(table,title,cost):
     #title = form.title.data
     #body = form.body.data
-    table='costs'
-    title='test'
-    cost=100
+    #table='costs'
+    #title='test'
+    #cost=100
     #Create cursor
     cur = mysql.connection.cursor()
     #Execute query
