@@ -10,16 +10,14 @@
   <table class="table table-striped" id="dtypes">
   <thead>
     <tr>
-      {% for a in articles %}
-      <th>{{a}}</th>
-      {% endfor %}
+
 
     </tr>
     </thead>
     <tbody>
     {% for article in articles %}
       <tr>
-        <td>{{article[0]}}</td>
+        <td>{{article[1]}}</td>
         <td>{{article.chat_id}}</td>
         <td>{{article.contact}}</td>
         <td>{{article.date}}</td>
