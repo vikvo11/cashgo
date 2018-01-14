@@ -34,7 +34,7 @@ mysql=MySQL(app)
 global last_msg
 last_msg=''
 
-#https://api.telegram.org/bot521265983:AAFUSq8QQzLUURwmCgXeBCjhRThRvf9YVM0/setWebhook?url=https://vorovik.pythonanywhere.com/webhook/
+#https://api.telegram.org/bot521265983:AAFUSq8QQzLUURwmCgXeBCjhRThRvf9YVM0/setWebhook?url=https://vorovik.pythonanywhere.com/webhooks/
 def write_json(data,filename='answer.json'):
     with open(filename,'w') as f:
         json.dump(data,f,indent=2,ensure_ascii=False)
@@ -110,7 +110,8 @@ def login():
 #Dashbord
 @app.route('/dashbord',methods=['GET','POST'])
 def dashbord():
-    msg = py()
+    #msg = py()
+    msg =mysql()
     return render_template('dashbordpymongo.html', articles=msg)
 
 #Articles
@@ -163,6 +164,14 @@ def py():
     docs = bookings_coll.find()
     id = docs[0]['name']
     return docs
+def mysql():
+    # Create cursor
+    cur = mysql.connection.cursor()
+    # Get articles
+    result = cur.execute("SELECT * FROM articles")
+    articles = cur.fetchall()
+    cur.close()
+    return articles
 
 def main():
     #doc = bookings_coll.find_one()
