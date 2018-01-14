@@ -115,7 +115,7 @@ def dashbord():
     #table='costs'
     #title='test'
     #cost=100
-    update_costs('costs','test123',100)
+    #update_costs('costs','test123',100)
     msg = mysqls('costs')
     #keys = dict(msg[0])
     #b=msg.keys()
@@ -153,7 +153,8 @@ def webhook():
             price = get_price(parc_text(text))
             #add_costs()
             send_message(chat_id,price)
-            add_costs('costs','test123',100)
+            #add_costs('costs','test123',100)
+            update_costs('costs',str(text),100)
             #update_costs('costs','test123',100)
         return jsonify(r)
 
