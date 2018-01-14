@@ -170,11 +170,11 @@ def mysqls():
     # Create cursor
     cur = mysql.connection.cursor()
     usern=' users'
-    username='vorovik'
+    username='3'
     # Get articles
     #result = cur.execute("SELECT * FROM %s",(art))
     #result = cur.execute("SELECT * FROM articles")
-    result = cur.execute("SELECT * FROM {} WHERE username=%s".format('users'),[username])
+    result = cur.execute("SELECT * FROM {} WHERE id=%s".format('articles'),[username])
 
     #result = cur.execute("SELECT * FROM users WHERE username=%s",[username])
     #cur.execute("INSERT INTO articles(title,author,body) VALUES(%s,%s,%s)",(title,session['username'],body))
