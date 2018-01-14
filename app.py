@@ -169,11 +169,11 @@ def py():
 def mysqls():
     # Create cursor
     cur = mysql.connection.cursor()
-    #username=table
+    usern="users"
     # Get articles
     #result = cur.execute("SELECT * FROM %s",(art))
     #result = cur.execute("SELECT * FROM articles")
-    result = cur.execute("SELECT * FROM %s",['articles'])
+    result = cur.execute("SELECT * FROM %s",[usern])
     #result = cur.execute("SELECT * FROM users WHERE username=%s",[username])
     #cur.execute("INSERT INTO articles(title,author,body) VALUES(%s,%s,%s)",(title,session['username'],body))
     articles = cur.fetchall()
