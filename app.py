@@ -54,7 +54,8 @@ def send_message(chatId,text='Please wait a few seconds...!'):
     return r.json()
 
 def parc_text(text):
-    pattern = r'/\w+'
+    # bitcoin pattern = r'/\w+'
+    pattern =r'/\S+'
     crypto = re.search(pattern,text).group()
     return crypto[1:]
 #patter1=r' \w+'
@@ -154,19 +155,20 @@ def webhook():
         text=r['message']['text']
         global last_msg
         last_msg=json.dumps(r,ensure_ascii=False)
-        pattern =r'/\w+'
-        #patter1=r' \w+'
-        #k=re.search(pattern,text)
-        #kk=re.search(pattern,k)
-        #s.replace(" ", "")
+        #bitcoin pattern =r'/\w+'
+        pattern =r'/\S+'
+
         if re.search(pattern,text):
-            price = get_price(parc_text(text))
+            #bitcoin price = get_price(parc_text(text))
             cost=parc_text_cost(text)
             cost.replace(" ", "")
+
             #add_costs()
-            send_message(chat_id,price)
+            #send_message(chat_id,price)
             #add_costs('costs','test123',100)
             update_costs('costs',str(parc_text(text)),int(cost))
+            #current_costs('costs',str(parc_text(text)))
+            send_message(chat_id,parc_text(text))
             #update_costs('costs','test123',100)
             #if re.search(pattern1,text):
                 #a=re.search(pattern1,text)
@@ -224,6 +226,7 @@ def update_costs(table,title,cost):
     #year and month
     result = cur.execute("SELECT * FROM {} where title=%s and year=(Select Year(CURDATE())) and month=(select month(CURDATE()))".format(table),[title])
     if result>0:
+        result = cur.fetchone()
         cur.execute("UPDATE {} SET cost=cost+%s where title=%s and year=(Select Year(CURDATE())) and month=(select month(CURDATE()))".format(table),(cost,title))
         mysql.connection.commit()
         cur.close()
@@ -235,7 +238,7 @@ def update_costs(table,title,cost):
         mysql.connection.commit()
         #Close connection
         cur.close()
-    return 'ok'
+    return str(result)
 
 def main():
     #doc = bookings_coll.find_one()
