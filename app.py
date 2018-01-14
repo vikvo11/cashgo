@@ -240,6 +240,8 @@ def update_costs(table,title,cost):
         #result = cur.execute("SELECT * FROM {} WHERE id=%s".format('articles'),[username])
         #Commit ot db
         mysql.connection.commit()
+        result = cur.execute("SELECT * FROM {} where title=%s and year=(Select Year(CURDATE())) and month=(select month(CURDATE()))".format(table),[title])
+        result = cur.fetchone()
         #Close connection
         cur.close()
     #return str(result)
