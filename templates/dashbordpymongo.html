@@ -19,9 +19,8 @@
     <tbody>
     {% for article in articles %}
       <tr>
-        {% for k in key.keys() %}
-        {%b = article.{}.format(k)%}
-        <td>{{b}}</td>
+        {% for k in article %}
+        <td>{{k}}</td>
         {% endfor %}
 
       </tr>
