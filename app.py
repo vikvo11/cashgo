@@ -130,11 +130,13 @@ def articles():
     # Close connection
     cur.close()
 
-@app.route('/webhook/',methods=['POST','GET'])
+@app.route('/webhooks/',methods=['POST','GET'])
 def webhook():
     if request.method=='POST':
+        global last_msg
+        last_msg='Test_POST'
         r = request.get_json()
-        write_json(r)
+        #write_json(r)
         chat_id=r['message']['chat']['id']
         text=r['message']['text']
         write_json(text)
@@ -143,8 +145,8 @@ def webhook():
             price = get_price(parc_text(text))
             send_message(chat_id,price)
 
-        global last_msg
-        last_msg=json.dumps(r,ensure_ascii=False)
+        #global last_msg
+        #last_msg=json.dumps(r,ensure_ascii=False)
 		#socketio.emit('my_response', {'data': 'Server generated event', 'count': 5}, namespace='/test')
 
         return jsonify(r)
