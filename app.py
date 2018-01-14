@@ -140,9 +140,9 @@ def webhook():
         global last_msg
         last_msg=json.dumps(r,ensure_ascii=False)
         pattern =r'/\w+'
-        if re.search(pattern,text):
-            price = get_price(parc_text(text))
-            send_message(chat_id,price)
+        #if re.search(pattern,text):
+            #price = get_price(parc_text(text))
+            #send_message(chat_id,price)
         if r['message']['text'] == 'req':
             send_message(chat_id,'Yra')
         #return make_response('',200)
