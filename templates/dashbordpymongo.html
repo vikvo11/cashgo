@@ -19,7 +19,7 @@
     {% for article in articles[0] %}
       <tr>
         {% for k in articles %}
-        <td>{{k.{article}}}</td>
+        <td>{{k.{}.format(article)}}</td>
         {% endfor %}
 
       </tr>
