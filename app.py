@@ -169,12 +169,12 @@ def py():
 def mysqls():
     # Create cursor
     cur = mysql.connection.cursor()
-    usern="users"
+    usern='users'
     username='vorovik'
     # Get articles
     #result = cur.execute("SELECT * FROM %s",(art))
     #result = cur.execute("SELECT * FROM articles")
-    result = cur.execute("SELECT * FROM %s WHERE username=%s",(usern,username))
+    result = cur.execute("SELECT * FROM table=%s WHERE username=%s",(usern,username))
 
     #result = cur.execute("SELECT * FROM users WHERE username=%s",[username])
     #cur.execute("INSERT INTO articles(title,author,body) VALUES(%s,%s,%s)",(title,session['username'],body))
