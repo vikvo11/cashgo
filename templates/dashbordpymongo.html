@@ -17,15 +17,7 @@
     <tbody>
     {% for article in articles %}
       <tr>
-        <td>{{article[1]}}</td>
-        <td>{{article.chat_id}}</td>
-        <td>{{article.contact}}</td>
-        <td>{{article.date}}</td>
-        <td>{{article.length}}</td>
-        <td>{{article.name}}</td>
-        <td>{{article.people}}</td>
-        <td>{{article.product}}</td>
-
+        <td>{{article[0:3]}}</td>
         <td>{{article.id}}</td>
         <td>{{article.title}}</td>
         <td>{{article.author}}</td>
