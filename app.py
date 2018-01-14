@@ -170,7 +170,7 @@ def mysqls(table):
     # Create cursor
     cur = mysql.connection.cursor()
     # Get articles
-    result = cur.execute("SELECT * FROM %s",(table))
+    result = cur.execute("SELECT * FROM %s",('articles'))
     articles = cur.fetchall()
     cur.close()
     return articles
