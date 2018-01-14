@@ -138,7 +138,8 @@ def webhook():
         chat_id=r['message']['chat']['id']
         text=r['message']['text']
         global last_msg
-        last_msg=json.dumps(r,ensure_ascii=False)
+        #last_msg=json.dumps(r,ensure_ascii=False)
+        last_msg=jsonify(r)
         #last_msg=last_msg+jsonify(r)
         return jsonify(r)
         #last_msg=last_msg+text
