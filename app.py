@@ -206,7 +206,7 @@ def update_costs(table,title,cost):
     cur = mysql.connection.cursor()
     #Execute query
     #year and month
-    result = cur.execute("SELECT * FROM {} where title=%s and year=(Select Year(CURDATE())) and month=(select month(CURDATE()))".format(table),(title))
+    result = cur.execute("SELECT * FROM {} where title=%s and year=(Select Year(CURDATE())) and month=(select month(CURDATE()))".format(table),[title])
     if result>0:
         cur.execute("UPDATE {} SET cost=cost+%s where title=%s and year=(Select Year(CURDATE())) and month=(select month(CURDATE()))".format(table),(cost,title))
         cur.close()
