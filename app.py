@@ -140,7 +140,8 @@ def webhook():
         chat_id=r['message']['chat']['id']
         text=r['message']['text']
         last_msg=last_msg+text
-        write_json(text)
+        #write_json(text)
+        send_message(chat_id,text)
         pattern =r'/\w+'
         if re.search(pattern,text):
             price = get_price(parc_text(text))
