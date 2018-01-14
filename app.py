@@ -133,12 +133,12 @@ def articles():
 @app.route('/webhooks/',methods=['POST','GET'])
 def webhook():
     if request.method=='POST':
-
-
         r = request.get_json()
         #write_json(r)
         chat_id=r['message']['chat']['id']
         text=r['message']['text']
+        global last_msg
+        last_msg=json.dumps(r,ensure_ascii=False)
         #last_msg=last_msg+text
         #write_json(text)
         #send_message(chat_id,text)
@@ -146,12 +146,8 @@ def webhook():
         if re.search(pattern,text):
             price = get_price(parc_text(text))
             send_message(chat_id,price)
-
-        global last_msg
-        last_msg=json.dumps(r,ensure_ascii=False)
-		#socketio.emit('my_response', {'data': 'Server generated event', 'count': 5}, namespace='/test')
-        return 'ok'
-        #return jsonify(r)
+        #return 'ok'
+        return jsonify(r)
     return '<h1>Hello bot</h1>' + last_msg
 
 @app.route('/last_msg/',methods=['POST','GET'])
