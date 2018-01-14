@@ -20,7 +20,8 @@
     {% for article in articles %}
       <tr>
         {% for k in key.keys() %}
-        <td>{{article.{}.format(k)}}</td>
+        {%b = article.{}.format(k)%}
+        <td>{{b}}</td>
         {% endfor %}
 
       </tr>
