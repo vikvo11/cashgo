@@ -57,7 +57,13 @@ def parc_text(text):
     pattern = r'/\w+'
     crypto = re.search(pattern,text).group()
     return crypto[1:]
-
+#patter1=r' \w+'
+#k=re.search(pattern,text)
+#kk=re.search(pattern,k)
+def parc_text_cost(text):
+    pattern = r' \w+'
+    cost = re.search(pattern,text).group()
+    return cost[1:]
 
 def get_price(crypto):
     url='https://api.coinmarketcap.com/v1/ticker/{}/'.format(crypto)
@@ -149,13 +155,18 @@ def webhook():
         global last_msg
         last_msg=json.dumps(r,ensure_ascii=False)
         pattern =r'/\w+'
-        patter1=r'\w+[^/\w+ ]'
+        #patter1=r' \w+'
+        #k=re.search(pattern,text)
+        #kk=re.search(pattern,k)
+        #s.replace(" ", "")
         if re.search(pattern,text):
             price = get_price(parc_text(text))
+            cost=parc_text_cost(text)
+            cost.replace(" ", "")
             #add_costs()
             send_message(chat_id,price)
             #add_costs('costs','test123',100)
-            update_costs('costs',str(text),100)
+            update_costs('costs',str(text),int(cost))
             #update_costs('costs','test123',100)
             #if re.search(pattern1,text):
                 #a=re.search(pattern1,text)
