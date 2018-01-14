@@ -11,17 +11,15 @@
   <thead>
     <tr>
       {% for article in articles[0] %}
-          
           <th>{{article}}</th>
-
       {% endfor %}
     </tr>
     </thead>
     <tbody>
-    {% for article in articles %}
+    {% for article in articles[0] %}
       <tr>
-        {% for k in article %}
-        <td>{{k}}</td>
+        {% for k in articles %}
+        <td>{{k.article}}</td>
         {% endfor %}
 
       </tr>
