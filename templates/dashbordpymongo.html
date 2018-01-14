@@ -10,9 +10,10 @@
   <table class="table table-striped" id="dtypes">
   <thead>
     <tr>
-      {% for k in key.keys() %}
-
-        <th>{{k}}</th>
+      {% for article in articles[0] %}
+          {% for k in article %}
+          <th>{{k}}</th>
+          {% endfor %}
       {% endfor %}
     </tr>
     </thead>
