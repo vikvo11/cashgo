@@ -5,9 +5,9 @@
                 <label for="slcColumns">Column:</label>
                 <select id="slcColumns" name="slcColumns" class="form-control">
                   {% for x,article in enumerate(articles[0]) %}
-                      <option value="{{x}}">{{article}}</option>
+                      <option value="0">{{article}}</option>
                   {% endfor %}
-                    
+
                 </select>
                 <input name="inpSearch" type="text" class="form-control" placeholder="Search">
                 <button type="submit" class="btn btn-secondary">Filter</button>
