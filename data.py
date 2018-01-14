@@ -24,8 +24,8 @@ def Version():
 a= Version()
 b=a[-1].keys()
 t = ((1, 'a'), (2, 'b'))
-d = dict(t)
-print(d.keys())
+#d = dict(t)
+print(t[0:1])
 #for b in a[-1].keys():
     #print (b)
 #for c in b:
