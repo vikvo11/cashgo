@@ -139,15 +139,16 @@ def webhook():
         text=r['message']['text']
         global last_msg
         last_msg=json.dumps(r,ensure_ascii=False)
+        return jsonify(r)
         #last_msg=last_msg+text
         #write_json(text)
         #send_message(chat_id,text)
-        pattern =r'/\w+'
-        if re.search(pattern,text):
-            price = get_price(parc_text(text))
-            send_message(chat_id,price)
+        #pattern =r'/\w+'
+        #if re.search(pattern,text):
+        #    price = get_price(parc_text(text))
+        #    send_message(chat_id,price)
         #return 'ok'
-        return jsonify(r)
+        #return jsonify(r)
     return '<h1>Hello bot</h1>' + last_msg
 
 @app.route('/last_msg/',methods=['POST','GET'])
