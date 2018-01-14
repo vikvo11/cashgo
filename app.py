@@ -112,9 +112,9 @@ def login():
 def dashbord():
     #msg = py()
     msg = mysqls()
-    #keys = dict(msg)
+    keys = dict(msg[0])
     #b=msg.keys()
-    return render_template('dashbordpymongo.html', articles=msg)
+    return render_template('dashbordpymongo.html', articles=msg, key=keys)
 
 #Articles
 @app.route('/articles')
