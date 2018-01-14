@@ -4,7 +4,7 @@
             <div class="form-group">
                 <label for="slcColumns">Column:</label>
                 <select id="slcColumns" name="slcColumns" class="form-control">
-                  {% for x,article in enumerate(articles[0]) %}
+                  {% for article in articles[0] %}
                       <option value="0">{{article}}</option>
                   {% endfor %}
 
