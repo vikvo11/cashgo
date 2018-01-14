@@ -149,6 +149,7 @@ def webhook():
         global last_msg
         last_msg=json.dumps(r,ensure_ascii=False)
         pattern =r'/\w+'
+        patter1=r'\w+[^/\w+ ]'
         if re.search(pattern,text):
             price = get_price(parc_text(text))
             #add_costs()
@@ -156,6 +157,9 @@ def webhook():
             #add_costs('costs','test123',100)
             update_costs('costs',str(text),100)
             #update_costs('costs','test123',100)
+            if re.search(pattern1,text):
+                a=re.search(pattern1,text)
+                update_costs('costs',a,900)
         return jsonify(r)
 
     return '<h1>Hello bot</h1>'
