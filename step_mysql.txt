@@ -6,6 +6,10 @@ Select date_format(CURDATE(),' ','%Y %m');
 Select Year(CURDATE());
 select month(CURDATE());
 
+select *,(Select Year(CURDATE())) from costs;
+INSERT INTO costs(title,cost,year,month) VALUES('title',100,(Select Year(CURDATE())),(select month(CURDATE())));
+INSERT INTO costs(title,cost,year,month) VALUES('title',100,(Select Year(CURDATE())),(select month(CURDATE())+4));
+
 CREATE TRIGGER ins_year
 BEFORE INSERT ON tableNAME
     FOR EACH ROW SET NEW.year = YEAR(NOW());
