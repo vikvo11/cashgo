@@ -169,8 +169,10 @@ def py():
 def mysqls():
     # Create cursor
     cur = mysql.connection.cursor()
+    art='articles'
     # Get articles
-    result = cur.execute("SELECT * FROM %s",('articles'))
+    result = cur.execute("SELECT * FROM %s",(art))
+    #cur.execute("INSERT INTO articles(title,author,body) VALUES(%s,%s,%s)",(title,session['username'],body))
     articles = cur.fetchall()
     cur.close()
     return articles
