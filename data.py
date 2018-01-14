@@ -23,8 +23,11 @@ def Version():
     return version
 a= Version()
 b=a[-1].keys()
+t = ((1, 'a'), (2, 'b'))
+d = dict(t)
+print(d.keys())
 #for b in a[-1].keys():
     #print (b)
-for c in b:
-    print (c)
+#for c in b:
+#    print (c)
 #print (a[-1].keys())
