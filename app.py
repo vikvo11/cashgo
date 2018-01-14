@@ -111,7 +111,7 @@ def login():
 @app.route('/dashbord',methods=['GET','POST'])
 def dashbord():
     #msg = py()
-    msg = mysqls()
+    msg = mysqls('articles')
     #keys = dict(msg[0])
     #b=msg.keys()
     return render_template('dashbordpymongo.html', articles=msg)
@@ -166,15 +166,13 @@ def py():
     docs = bookings_coll.find()
     id = docs[0]['name']
     return docs
-def mysqls():
+def mysqls(table):
     # Create cursor
     cur = mysql.connection.cursor()
-    usern=' users'
-    username='3'
     # Get articles
     #result = cur.execute("SELECT * FROM %s",(art))
     #result = cur.execute("SELECT * FROM articles")
-    result = cur.execute("SELECT * FROM {} WHERE id=%s".format('articles'),[username])
+    result = cur.execute("SELECT * FROM {}".format(table))
 
     #result = cur.execute("SELECT * FROM users WHERE username=%s",[username])
     #cur.execute("INSERT INTO articles(title,author,body) VALUES(%s,%s,%s)",(title,session['username'],body))

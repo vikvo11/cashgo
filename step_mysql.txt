@@ -8,3 +8,11 @@ select month(CURDATE());
 CREATE TRIGGER ins_year
 BEFORE INSERT ON tableNAME
     FOR EACH ROW SET NEW.year = YEAR(NOW());
+
+
+    usern=' users'
+      username='3'
+      # Get articles
+      #result = cur.execute("SELECT * FROM %s",(art))
+      #result = cur.execute("SELECT * FROM articles")
+      result = cur.execute("SELECT * FROM {} WHERE id=%s".format('articles'),[username])
