@@ -242,8 +242,8 @@ def update_costs(table,title,cost):
         mysql.connection.commit()
         #Close connection
         cur.close()
-    return str(result)
-
+    #return str(result)
+    return ('Затраты в текущем месяце на '+str(result['title'])+'= '+str(result['cost'])+' рублей')
 def main():
     #doc = bookings_coll.find_one()
 

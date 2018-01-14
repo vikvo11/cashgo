@@ -32,11 +32,6 @@ t = ((1, 'a'), (2, 'b'))
 #    print (c)
 #print (a[-1].keys())
 
-usern=' users'
-username='vorovik'
-# Get articles
-#result = cur.execute("SELECT * FROM %s",(art))
-#result = cur.execute("SELECT * FROM articles")
-a =("SELECT * FROM%s WHERE username=%s",(usern,username))
-result = "SELECT * FROM users WHERE username={}".format('vorovik')
-print (result)
+abra={'id': 2, 'title': 'тест', 'cost': 223, 'year': 2018, 'month': 1, 'register_date': 'datetime.datetime(2018, 1, 14, 23, 31, 37)'}
+print ('Затраты в текущем месяце = '+str(abra['cost'])+' рублей')
+print ('Затраты в текущем месяце на '+str(abra['title'])+'= '+str(abra['cost'])+' рублей')
