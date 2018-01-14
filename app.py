@@ -115,6 +115,7 @@ def dashbord():
     #table='costs'
     #title='test'
     #cost=100
+    update_costs('costs','test123',100)
     msg = mysqls('costs')
     #keys = dict(msg[0])
     #b=msg.keys()
@@ -153,6 +154,7 @@ def webhook():
             #add_costs()
             send_message(chat_id,price)
             add_costs('costs','test123',100)
+            #update_costs('costs','test123',100)
         return jsonify(r)
 
     return '<h1>Hello bot</h1>'
@@ -187,11 +189,6 @@ def mysqls(table):
     return articles
 
 def add_costs(table,title,cost):
-    #title = form.title.data
-    #body = form.body.data
-    #table='costs'
-    #title='test'
-    #cost=100
     #Create cursor
     cur = mysql.connection.cursor()
     #Execute query
@@ -202,6 +199,25 @@ def add_costs(table,title,cost):
     mysql.connection.commit()
     #Close connection
     cur.close()
+    return 'ok'
+
+def update_costs(table,title,cost):
+    #Create cursor
+    cur = mysql.connection.cursor()
+    #Execute query
+    #year and month
+    result = cur.execute("SELECT * FROM {} where title=%s and year=(Select Year(CURDATE())) and month=(select month(CURDATE()))".format(table),(title))
+    if result>0:
+        cur.execute("UPDATE {} SET cost=cost+%s where title=%s and year=(Select Year(CURDATE())) and month=(select month(CURDATE()))".format(table),(cost,title))
+        cur.close()
+    else:
+        #cur.execute("INSERT INTO {}(title,cost,year,month) VALUES(%s,%s,(Select Year(CURDATE())),(select month(CURDATE())))".format(table),(title,cost))
+        cur.execute("INSERT INTO {}(title,cost,year,month) VALUES(%s,%s,(Select Year(CURDATE())),(select month(CURDATE())))".format(table),(title,cost))
+        #result = cur.execute("SELECT * FROM {} WHERE id=%s".format('articles'),[username])
+        #Commit ot db
+        mysql.connection.commit()
+        #Close connection
+        cur.close()
     return 'ok'
 
 def main():
