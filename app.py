@@ -134,11 +134,12 @@ def articles():
 def webhook():
     if request.method=='POST':
         global last_msg
-        last_msg=last_msg+'Test_POST'
+
         r = request.get_json()
         #write_json(r)
         chat_id=r['message']['chat']['id']
         text=r['message']['text']
+        last_msg=last_msg+text
         write_json(text)
         pattern =r'/\w+'
         if re.search(pattern,text):
