@@ -139,7 +139,7 @@ def webhook():
         text=r['message']['text']
         global last_msg
         last_msg=text
-        if r['message']['text'] == 'testa':
+        if r['message']['text'] == 'req':
             send_message(chat_id,'Yra')
         return make_response('',200)
 
