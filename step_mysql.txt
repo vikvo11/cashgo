@@ -1,4 +1,5 @@
 CREATE TABLE costs(id INT(11) AUTO_INCREMENT PRIMARY KEY, title VARCHAR(200), cost INT(10), year INT(10) DEFAULT 2018, month INT(10) DEFAULT 0, register_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+truncate costs;
 
 Select date_format(CURDATE(),' ','%Y %m');
 

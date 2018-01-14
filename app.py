@@ -111,7 +111,7 @@ def login():
 @app.route('/dashbord',methods=['GET','POST'])
 def dashbord():
     #msg = py()
-    add_costs('costs','test123',100)
+    #add_costs('costs','test123',100)
     #table='costs'
     #title='test'
     #cost=100
@@ -152,6 +152,7 @@ def webhook():
             price = get_price(parc_text(text))
             #add_costs()
             send_message(chat_id,price)
+            add_costs('costs','test123',int(price))
         return jsonify(r)
 
     return '<h1>Hello bot</h1>'
