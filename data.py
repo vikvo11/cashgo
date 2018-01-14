@@ -31,4 +31,12 @@ t = ((1, 'a'), (2, 'b'))
 #for c in b:
 #    print (c)
 #print (a[-1].keys())
-ara ={&#39;id&#39;: 4, &#39;title&#39;: &#39;12321222222222223123123&#39;, &#39;author&#39;: &#39;vorovik&#39;, &#39;body&#39;: &#39;&lt;p&gt;123123123123123123123123123123123123123123123123123123123123123123123123123123123123&lt;/p&gt;&#39;, &#39;create_date&#39;: datetime.datetime(2018, 1, 5, 23, 40, 56)}
+
+usern=' users'
+username='vorovik'
+# Get articles
+#result = cur.execute("SELECT * FROM %s",(art))
+#result = cur.execute("SELECT * FROM articles")
+a =("SELECT * FROM%s WHERE username=%s",(usern,username))
+result = "SELECT * FROM users WHERE username={}".format('vorovik')
+print (result)
