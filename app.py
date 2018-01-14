@@ -111,7 +111,7 @@ def login():
 @app.route('/dashbord',methods=['GET','POST'])
 def dashbord():
     #msg = py()
-    msg = mysqls('articles')
+    msg = mysqls('costs')
     #keys = dict(msg[0])
     #b=msg.keys()
     return render_template('dashbordpymongo.html', articles=msg)
