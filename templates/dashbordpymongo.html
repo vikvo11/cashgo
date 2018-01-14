@@ -10,10 +10,10 @@
   <table class="table table-striped" id="dtypes">
   <thead>
     <tr>
-      {% for a in articles.keys %}
+      {% for a in dict(articles).keys() %}
       <th>{{a}}</th>
       {% endfor %}
-      <th>{{keys}}</th>
+
     </tr>
     </thead>
     <tbody>
