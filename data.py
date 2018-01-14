@@ -22,6 +22,9 @@ def Version():
     ]
     return version
 a= Version()
-for b in a[-1].keys():
-    print (b)
+b=a[-1].keys()
+#for b in a[-1].keys():
+    #print (b)
+for c in b:
+    print (c)
 #print (a[-1].keys())
