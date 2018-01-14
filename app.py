@@ -157,9 +157,9 @@ def webhook():
             #add_costs('costs','test123',100)
             update_costs('costs',str(text),100)
             #update_costs('costs','test123',100)
-            if re.search(pattern1,text):
-                a=re.search(pattern1,text)
-                update_costs('costs',a,900)
+            #if re.search(pattern1,text):
+                #a=re.search(pattern1,text)
+                #update_costs('costs',a,900)
         return jsonify(r)
 
     return '<h1>Hello bot</h1>'
