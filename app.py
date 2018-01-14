@@ -174,7 +174,7 @@ def mysqls():
     # Get articles
     #result = cur.execute("SELECT * FROM %s",(art))
     #result = cur.execute("SELECT * FROM articles")
-    result = cur.execute("SELECT * FROM {} WHERE username='vorovik'".format('users'))
+    result = cur.execute("SELECT * FROM {} WHERE username=%s".format('users'),[username])
 
     #result = cur.execute("SELECT * FROM users WHERE username=%s",[username])
     #cur.execute("INSERT INTO articles(title,author,body) VALUES(%s,%s,%s)",(title,session['username'],body))
