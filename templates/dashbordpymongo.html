@@ -24,8 +24,6 @@
         <td>{{article.year}}</td>
         <td>{{article.month}}</td>
         <td>{{article.register_date}}</td>
-        <td><a href="edit_article/{{article.id}}" class="btn btn-default pull-right">Edit</a></td>
-        <td><a href="#" class="btn btn-danger ">Delete</a></td>
       </tr>
     {% endfor %}
     </tbody>
@@ -75,7 +73,7 @@
     col_6: 'select',
             col_widths: [
                 '75px', '150px', '150px',
-                '70px', '230px', '70px','100px'
+                '70px', '230px', '70px'
             ],
 
     no_results_message: true,
@@ -87,7 +85,6 @@
     col_types: [
         'string',
         'string',
-        { type: 'date', locale: 'en-US' },
         'string',
         'string',
         'string',

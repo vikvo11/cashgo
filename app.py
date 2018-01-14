@@ -195,6 +195,7 @@ def add_costs(table,title,cost):
     #Create cursor
     cur = mysql.connection.cursor()
     #Execute query
+    #cur.execute("INSERT INTO {}(title,cost,year,month) VALUES(%s,%s,(Select Year(CURDATE())),(select month(CURDATE())))".format(table),(title,cost))
     cur.execute("INSERT INTO {}(title,cost,year,month) VALUES(%s,%s,(Select Year(CURDATE())),(select month(CURDATE())))".format(table),(title,cost))
     #result = cur.execute("SELECT * FROM {} WHERE id=%s".format('articles'),[username])
     #Commit ot db
