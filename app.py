@@ -13,6 +13,7 @@ from flask_mysqldb import MySQL #For connect to MySQL DB
 from flask import jsonify #For response in /webhook
 from flask_sslify import SSLify #For use HTTPS
 from misck import token,chat_id_old # Misck.py - config for telegram_bot
+from flask import make_response
 
 URL='https://api.telegram.org/bot{}/'.format(token)
 app = Flask(__name__)
@@ -132,6 +133,14 @@ def articles():
 
 @app.route('/webhooks/',methods=['POST','GET'])
 def webhook():
+    if request.method == 'POST':
+        r = request.get_json()
+        global last_msg
+        last_msg=r['message']['text']
+        return make_response('',200)
+
+    return '<h1>Hello bot</h1>'
+'''
     if request.method=='POST':
         r = request.get_json()
         #write_json(r)
@@ -153,7 +162,7 @@ def webhook():
         #return jsonify(r)
 
     return '<h1>Hello bot</h1>'
-
+'''
 @app.route('/last_msg/',methods=['POST','GET'])
 #curl -u vorovik:python123 -i https://vorovik.pythonanywhere.com/last_msg/
 def teslast():
