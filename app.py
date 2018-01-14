@@ -29,6 +29,8 @@ app.config['MYSQL_CURSORCLASS']='DictCursor'
 mysql=MySQL(app)
 
 #*****
+global last_msg
+last_msg=''
 
 #https://api.telegram.org/bot521265983:AAFUSq8QQzLUURwmCgXeBCjhRThRvf9YVM0/setWebhook?url=https://vorovik.pythonanywhere.com/webhook/
 def write_json(data,filename='answer.json'):
@@ -141,12 +143,18 @@ def webhook():
             price = get_price(parc_text(text))
             send_message(chat_id,price)
 
-        #global last_msg
-        #last_msg=json.dumps(r,ensure_ascii=False)
+        global last_msg
+        last_msg=json.dumps(r,ensure_ascii=False)
 		#socketio.emit('my_response', {'data': 'Server generated event', 'count': 5}, namespace='/test')
 
         return jsonify(r)
     return '<h1>Hello bot</h1>'
+
+@app.route('/last_msg/',methods=['POST','GET'])
+#curl -u vorovik:python123 -i https://vorovik.pythonanywhere.com/last_msg/
+def teslast():
+    r='<h2>{}</h2>'.format(last_msg)
+    return r
 
 def py():
     client = MongoClient("ds141786.mlab.com:41786", username = 'podarkin', password = 'podarkin', authSource = 'heroku_q51pzrtm')
