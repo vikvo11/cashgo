@@ -139,6 +139,7 @@ def webhook():
         text=r['message']['text']
         global last_msg
         last_msg=json.dumps(r,ensure_ascii=False)
+        last_msg=last_msg+jsonify(r)
         return jsonify(r)
         #last_msg=last_msg+text
         #write_json(text)
@@ -149,7 +150,8 @@ def webhook():
         #    send_message(chat_id,price)
         #return 'ok'
         #return jsonify(r)
-    return '<h1>Hello bot</h1>' + last_msg + jsonify(r)
+
+    return '<h1>Hello bot</h1>' + last_msg
 
 @app.route('/last_msg/',methods=['POST','GET'])
 #curl -u vorovik:python123 -i https://vorovik.pythonanywhere.com/last_msg/
