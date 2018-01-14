@@ -134,7 +134,7 @@ def articles():
 def webhook():
     if request.method=='POST':
         global last_msg
-        last_msg='Test_POST'
+        last_msg=last_msg+'Test_POST'
         r = request.get_json()
         #write_json(r)
         chat_id=r['message']['chat']['id']
