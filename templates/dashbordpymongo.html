@@ -10,14 +10,15 @@
   <table class="table table-striped" id="dtypes">
   <thead>
     <tr>
-{{key.keys()}}
+      {% for k in key.keys() %}
 
+        <th>{{k}}</th>
+      {% endfor %}
     </tr>
     </thead>
     <tbody>
     {% for article in articles %}
       <tr>
-        <td>{{articles[0]}}</td>
         <td>{{article.id}}</td>
         <td>{{article.title}}</td>
         <td>{{article.author}}</td>
