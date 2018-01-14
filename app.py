@@ -148,10 +148,10 @@ def webhook():
 		#socketio.emit('my_response', {'data': 'Server generated event', 'count': 5}, namespace='/test')
 
         return jsonify(r)
-    return '<h1>Hello bot</h1>'
+    return '<h1>Hello bot</h1>' + last_msg
 
 @app.route('/last_msg/',methods=['POST','GET'])
-#curl -u vorovik:python123 -i https://vorovik.pythonanywhere.com/last_msg/ 
+#curl -u vorovik:python123 -i https://vorovik.pythonanywhere.com/last_msg/
 def teslast():
     r='<h2>{}</h2>'.format(last_msg)
     return r
