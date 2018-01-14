@@ -141,7 +141,8 @@ def webhook():
         last_msg=text
         if r['message']['text'] == 'req':
             send_message(chat_id,'Yra')
-        return make_response('',200)
+        #return make_response('',200)
+        return jsonify(r)
 
     return '<h1>Hello bot</h1>'
 '''
