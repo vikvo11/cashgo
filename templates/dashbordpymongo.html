@@ -10,13 +10,9 @@
   <table class="table table-striped" id="dtypes">
   <thead>
     <tr>
-      <th>ID</th>
-      <th>Contact</th>
-      <th>Date</th>
-      <th>Length</th>
-      <th>Name</th>
-      <th>People</th>
-      <th>Product</th>
+      {% for a in articles.keys() %}
+      <th>{{a}}</th>
+      {% endfor %}
     </tr>
     </thead>
     <tbody>
@@ -29,6 +25,7 @@
         <td>{{article.name}}</td>
         <td>{{article.people}}</td>
         <td>{{article.product}}</td>
+
         <td>{{article.id}}</td>
         <td>{{article.title}}</td>
         <td>{{article.author}}</td>
