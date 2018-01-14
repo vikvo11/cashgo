@@ -111,7 +111,7 @@ def login():
 @app.route('/dashbord',methods=['GET','POST'])
 def dashbord():
     #msg = py()
-    msg =mysql()
+    msg = mysqls()
     return render_template('dashbordpymongo.html', articles=msg)
 
 #Articles
@@ -164,7 +164,7 @@ def py():
     docs = bookings_coll.find()
     id = docs[0]['name']
     return docs
-def mysql():
+def mysqls():
     # Create cursor
     cur = mysql.connection.cursor()
     # Get articles
