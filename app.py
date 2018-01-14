@@ -166,7 +166,7 @@ def webhook():
             #add_costs()
             send_message(chat_id,price)
             #add_costs('costs','test123',100)
-            update_costs('costs',str(text),int(cost))
+            update_costs('costs',str(parc_text(text)),int(cost))
             #update_costs('costs','test123',100)
             #if re.search(pattern1,text):
                 #a=re.search(pattern1,text)
