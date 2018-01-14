@@ -139,7 +139,7 @@ def webhook():
         text=r['message']['text']
         global last_msg
         last_msg=json.dumps(r,ensure_ascii=False)
-        last_msg=last_msg+jsonify(r)
+        #last_msg=last_msg+jsonify(r)
         return jsonify(r)
         #last_msg=last_msg+text
         #write_json(text)
