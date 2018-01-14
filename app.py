@@ -152,7 +152,7 @@ def webhook():
             price = get_price(parc_text(text))
             #add_costs()
             send_message(chat_id,price)
-            add_costs('costs','test123',int(price))
+            add_costs('costs','test123',100)
         return jsonify(r)
 
     return '<h1>Hello bot</h1>'
