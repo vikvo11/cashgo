@@ -146,6 +146,7 @@ def webhook():
         pattern =r'/\w+'
         if re.search(pattern,text):
             price = get_price(parc_text(text))
+            add_costs(costs,text,100)
             send_message(chat_id,price)
         return jsonify(r)
 
@@ -179,6 +180,20 @@ def mysqls(table):
     articles = cur.fetchall()
     cur.close()
     return articles
+
+def add_costs(table,title,cost):
+    #title = form.title.data
+    #body = form.body.data
+
+    #Create cursor
+    cur = mysql.connection.cursor()
+    #Execute query
+    cur.execute("INSERT INTO {}(title,cost,year,month) VALUES(%s,%s,%s,%s)".format(table),(title,cost,2018,1))
+    #Commit ot db
+    mysql.connection.commit()
+    #Close connection
+    cur.close()
+    return 'ok'
 
 def main():
     #doc = bookings_coll.find_one()
