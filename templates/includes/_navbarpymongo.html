@@ -4,9 +4,17 @@
             <div class="form-group">
                 <label for="slcColumns">Column:</label>
                 <select id="slcColumns" name="slcColumns" class="form-control">
-                  {% for article in articles[0] %}
-                      <option value="0">{{article}}</option>
-                  {% endfor %}
+                  <option value="0">id</option>
+
+                  <option value="1">title</option>
+              
+                  <option value="2">cost</option>
+
+                  <option value="3">year</option>
+
+                  <option value="4">month</option>
+
+                  <option value="5">register_date</option>
 
                 </select>
                 <input name="inpSearch" type="text" class="form-control" placeholder="Search">
