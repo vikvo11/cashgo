@@ -152,7 +152,7 @@ def webhook():
         #return 'ok'
         #return jsonify(r)
 
-    return '<h1>Hello bot</h1>' + last_msg
+    return '<h1>Hello bot</h1>' + str(last_msg)
 
 @app.route('/last_msg/',methods=['POST','GET'])
 #curl -u vorovik:python123 -i https://vorovik.pythonanywhere.com/last_msg/
