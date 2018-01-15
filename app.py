@@ -49,7 +49,7 @@ key_default.row(types.KeyboardButton('Button 3'))
 #Тут пишем метод который будет выполнятся, когда нажмём на кнопку
 def button(message):
     #send_message(chat_id,parc_text(text))
-     #bot.send_message('Тут надо вписать id чата', 'Сюда пишем текст типо - Привет')
+     bot.send_message(chat_id_old, 'Сюда пишем текст типо - Привет')
 #*****
 
 def write_json(data,filename='answer.json'):
