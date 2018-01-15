@@ -24,3 +24,5 @@ BEFORE INSERT ON tableNAME
       #result = cur.execute("SELECT * FROM %s",(art))
       #result = cur.execute("SELECT * FROM articles")
       result = cur.execute("SELECT * FROM {} WHERE id=%s".format('articles'),[username])
+
+  pip install pytelegrambotapi

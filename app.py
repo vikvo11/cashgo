@@ -16,6 +16,7 @@ from misck import token,chat_id_old # Misck.py - config for telegram_bot
 from flask import make_response
 import re
 import telebot
+from telebot import types
 
 
 URL='https://api.telegram.org/bot{}/'.format(token)
