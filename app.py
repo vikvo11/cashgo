@@ -46,6 +46,13 @@ key_default.row(types.KeyboardButton('Button 1'))
 key_default.row(types.KeyboardButton('Button 2'))
 key_default.row(types.KeyboardButton('Button 3'))
 
+@bot.message_handler(content_types=["text"])
+def default_test(message):
+    keyboard = types.InlineKeyboardMarkup()
+    url_button = types.InlineKeyboardButton(text="Перейти на Яндекс", url="https://ya.ru")
+    keyboard.add(url_button)
+    bot.send_message(message.chat.id, "Привет! Нажми на кнопку и перейди в поисковик.", reply_markup=keyboard)
+
 @bot.message_handler(func=lambda message: messages.text == u'Button 1') #Если была вызвана Button 1
 #Тут пишем метод который будет выполнятся, когда нажмём на кнопку
 def button(message):
