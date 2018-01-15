@@ -141,6 +141,7 @@ def login():
 
 #Dashbord
 @app.route('/dashbord',methods=['GET','POST'])
+@is_logged_in
 def dashbord():
     #msg = py()
     #add_costs('costs','test123',100)
@@ -281,5 +282,5 @@ def main():
 
 
 if __name__ == '__main__':
-    bot.polling(none_stop=True)
+    #bot.polling(none_stop=True)
     main()
