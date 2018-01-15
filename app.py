@@ -15,6 +15,8 @@ from flask_sslify import SSLify #For use HTTPS
 from misck import token,chat_id_old # Misck.py - config for telegram_bot
 from flask import make_response
 import re
+import telebot
+
 
 URL='https://api.telegram.org/bot{}/'.format(token)
 app = Flask(__name__)
@@ -35,6 +37,21 @@ global last_msg
 last_msg=''
 
 #https://api.telegram.org/bot521265983:AAFUSq8QQzLUURwmCgXeBCjhRThRvf9YVM0/setWebhook?url=https://vorovik.pythonanywhere.com/webhooks/
+
+#*****
+bot = telebot.TeleBot(token)
+key_default = types.ReplyKeyboardMarkup(resize_keyboard=True)
+key_default.row(types.KeyboardButton('Button 1'))
+key_default.row(types.KeyboardButton('Button 2'))
+key_default.row(types.KeyboardButton('Button 3'))
+
+@bot.message_handler(func=lambda message: messages.text == u'Button 1') #Если была вызвана Button 1
+#Тут пишем метод который будет выполнятся, когда нажмём на кнопку
+def button(message):
+    #send_message(chat_id,parc_text(text))
+     #bot.send_message('Тут надо вписать id чата', 'Сюда пишем текст типо - Привет')
+#*****
+
 def write_json(data,filename='answer.json'):
     with open(filename,'w') as f:
         json.dump(data,f,indent=2,ensure_ascii=False)
@@ -229,7 +246,7 @@ def update_costs(table,title,cost):
     #Execute query
     #year and month
     result = cur.execute("SELECT * FROM {} where title=%s and year=(Select Year(CURDATE())) and month=(select month(CURDATE()))".format(table),[title])
-    if result>0:    
+    if result>0:
         cur.execute("UPDATE {} SET cost=cost+%s where title=%s and year=(Select Year(CURDATE())) and month=(select month(CURDATE()))".format(table),(cost,title))
         mysql.connection.commit()
         result = cur.execute("SELECT * FROM {} where title=%s and year=(Select Year(CURDATE())) and month=(select month(CURDATE()))".format(table),[title])
@@ -256,4 +273,5 @@ def main():
 
 
 if __name__ == '__main__':
+    bot.polling(none_stop=True)
     main()
