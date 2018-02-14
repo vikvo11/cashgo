@@ -18,6 +18,8 @@ import re
 import telebot
 from telebot import types
 
+#select from costs ;
+#delete from costs where id=25;
 
 URL='https://api.telegram.org/bot{}/'.format(token)
 app = Flask(__name__)
@@ -75,8 +77,11 @@ def send_message(chatId,text='Please wait a few seconds...!'):
     url=URL+'sendMessage'
     answer = {'chat_id': chatId, 'text': text}
     print(answer)
-    r=requests.get(url,json=answer)
-    return r.json()
+    #r=requests.get(url,json=answer)
+    #print(r.json())
+    request = requests.post(url, data=answer)
+    print(request.json())
+    return request.json()
 
 def parc_text(text):
     # bitcoin pattern = r'/\w+'
