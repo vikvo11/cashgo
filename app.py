@@ -18,9 +18,21 @@ import re
 import telebot
 from telebot import types
 
+
+
+#********
+#import socket
+#import socks
+#socks.set_default_proxy(socks.SOCKS5, '148.251.130.165',8080,True)
+#socket.socket = socks.socksocket
+#print(requests.get('https://api.telegram.org/bot521265983:AAFUSq8QQzLUURwmCgXeBCjhRThRvf9YVM0/setWebhook?url=').text)
+#print(requests.get('https://api.telegram.org/bot521265983:AAFUSq8QQzLUURwmCgXeBCjhRThRvf9YVM0/setWebhook?url=https://vorovik.pythonanywhere.com/webhooks/').text)
+#answer = {'chat_id': 488735610, 'text': 'test'}
+#print(requests.post('https://api.telegram.org/bot521265983:AAFUSq8QQzLUURwmCgXeBCjhRThRvf9YVM0/sendMessage',data=answer).text)
+#*********
+
 #select from costs ;
 #delete from costs where id=25;
-
 URL='https://api.telegram.org/bot{}/'.format(token)
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'morkovka18'
@@ -38,6 +50,11 @@ mysql=MySQL(app)
 #*****
 global last_msg
 last_msg=''
+
+curs =3 # 1=RUB; 3=CZK
+currency = 'CZK' # 'RUB'
+limit_value='limit_czk_value' #'limit_value' - RUB
+
 
 #https://api.telegram.org/bot521265983:AAFUSq8QQzLUURwmCgXeBCjhRThRvf9YVM0/setWebhook?url=https://vorovik.pythonanywhere.com/webhooks/
 
@@ -79,7 +96,9 @@ def send_message(chatId,text='Please wait a few seconds...!'):
     print(answer)
     #r=requests.get(url,json=answer)
     #print(r.json())
+
     request = requests.post(url, data=answer)
+
     print(request.json())
     return request.json()
 
@@ -92,7 +111,8 @@ def parc_text(text):
 #k=re.search(pattern,text)
 #kk=re.search(pattern,k)
 def parc_text_cost(text):
-    pattern = r' \w+'
+    #pattern = r' \w+'
+    pattern = r' \-?[0-9]\d*(\.\d+)?$'
     cost = re.search(pattern,text).group()
     return cost[1:]
 
@@ -188,11 +208,39 @@ def webhook():
         last_msg=json.dumps(r,ensure_ascii=False)
         #bitcoin pattern =r'/\w+'
         pattern =r'/\S+'
+        patternSum =r'/сумма'
+        patternLim =r'/лимит'
 
-        if re.search(pattern,text):
-            #bitcoin price = get_price(parc_text(text))
-            cost=parc_text_cost(text)
-            cost.replace(" ", "")
+        #answer = {'chat_id': 488735610, 'text': 'test'}
+        #print(requests.post('https://api.telegram.org/bot521265983:AAFUSq8QQzLUURwmCgXeBCjhRThRvf9YVM0/sendMessage',data=answer).text)
+        if re.search(patternLim,text):
+            cur = mysql.connection.cursor()
+            Lims=cur.execute("SELECT title,limits,cost FROM costs where year=(Select Year(CURDATE())) and month=(select month(CURDATE())) and title !=%s",['кредит'])
+            Lims = cur.fetchall()
+            cur.close()
+            #send_message(chat_id,'Категория = '+str(Lim['title'])+'лимит=' + str(Lim['limits']))
+            for Lim in Lims:
+                #send_message(chat_id,'Категория = '+str(Lim['title'])+' лимит=' + str(Lim['limits']))
+                #send_message(chat_id,str(Lim['title'])+' текущий = '+str(Lim['cost']) +' лимит=' + str(Lim['limits']))
+                #limmsg=limmsg+str(Lim['title'])+' текущий = '+str(Lim['cost']) +' лимит=' + str(Lim['limits'])
+                limmsg=str(Lim['title'])+': текущий = '+str(Lim['cost']) +currency+' лимит=' + str(Lim['limits'])+currency
+                #lmsg=lmsg+""+limmsg+". \n"
+            send_message(chat_id,""+limmsg+". \n"+limmsg+"")
+
+            return jsonify(r)
+
+        if re.search(patternSum,text):
+            cur = mysql.connection.cursor()
+            Sum=cur.execute("SELECT sum(cost) as summa FROM costs where year=(Select Year(CURDATE())) and month=(select month(CURDATE())) and title !=%s",['кредит'])
+            Sum = cur.fetchone()
+            cur.close()
+            send_message(chat_id,'Общая потраченная сумма в этом месяце = '+str(Sum['summa']))
+            return jsonify(r)
+        else:
+            if re.search(pattern,text) and not re.search(patternLim,text) :
+                #bitcoin price = get_price(parc_text(text))
+                cost=parc_text_cost(text)
+                cost.replace(" ", "")
 
             #add_costs()
             #send_message(chat_id,price)
@@ -203,12 +251,25 @@ def webhook():
             #current_costs('costs',str(parc_text(text)))
 
             #*send_message(chat_id,parc_text(text))
-            send_message(chat_id,update_costs('costs',str(parc_text(text)),int(cost)))
+                send_message(chat_id,update_costs('costs',str(parc_text(text)),int(cost)))
             #update_costs('costs','test123',100)
             #if re.search(pattern1,text):
                 #a=re.search(pattern1,text)
                 #update_costs('costs',a,900)
-        return jsonify(r)
+            return jsonify(r)
+
+    return '<h1>Hello bot</h1>'
+
+@app.route('/webhooks1/',methods=['POST','GET'])
+def webhooks1():
+    if request.method == 'GET':
+        #socks.set_default_proxy(socks.SOCKS5, '148.251.130.165',8080,True)
+        #socket.socket = socks.socksocket
+        answer1 = {'chat_id': 488735610, 'text': 'test'}
+        #requests.post('https://api.telegram.org/bot521265983:AAFUSq8QQzLUURwmCgXeBCjhRThRvf9YVM0/sendMessage',data=answer1).text
+        #requests.post('https://yandex.ru',data=answer1)
+        requests.post('https://api.telegram.org/bot521265983:AAFUSq8QQzLUURwmCgXeBCjhRThRvf9YVM0/sendMessage',data=answer1)
+        return '<h1>Hello bot</h1>'
 
     return '<h1>Hello bot</h1>'
 
@@ -260,24 +321,53 @@ def update_costs(table,title,cost):
     #Execute query
     #year and month
     result = cur.execute("SELECT * FROM {} where title=%s and year=(Select Year(CURDATE())) and month=(select month(CURDATE()))".format(table),[title])
+    limit= cur.execute("SELECT * FROM limit_dict where title=%s",[title])
     if result>0:
-        cur.execute("UPDATE {} SET cost=cost+%s where title=%s and year=(Select Year(CURDATE())) and month=(select month(CURDATE()))".format(table),(cost,title))
+        if limit>0:
+            cur.execute("UPDATE {} SET cost=cost+%s,limits=limits-%s where title=%s and year=(Select Year(CURDATE())) and month=(select month(CURDATE()))".format(table),(cost,cost,title))
+        else:
+            cur.execute("UPDATE {} SET cost=cost+%s where title=%s and year=(Select Year(CURDATE())) and month=(select month(CURDATE()))".format(table),(cost,title))
+        #cur.execute("UPDATE {} SET cost=cost+%s where title=%s and year=(Select Year(CURDATE())) and month=(select month(CURDATE()))".format(table),(cost,title))
         mysql.connection.commit()
         result = cur.execute("SELECT * FROM {} where title=%s and year=(Select Year(CURDATE())) and month=(select month(CURDATE()))".format(table),[title])
         result = cur.fetchone()
-        cur.close()
+        #cur.close()
     else:
+        if limit>0:
+            limits= cur.execute("SELECT * FROM limit_dict where title=%s",[title])
+            limits = cur.fetchone()
+            cur.execute("INSERT INTO {}(title,cost,year,month,limits) VALUES(%s,%s,(Select Year(CURDATE())),(select month(CURDATE())),%s)".format(table),(title,cost,int(limits[str(limit_value)])-cost))
+        else:
+            cur.execute("INSERT INTO {}(title,cost,year,month) VALUES(%s,%s,(Select Year(CURDATE())),(select month(CURDATE())))".format(table),(title,cost))
         #cur.execute("INSERT INTO {}(title,cost,year,month) VALUES(%s,%s,(Select Year(CURDATE())),(select month(CURDATE())))".format(table),(title,cost))
-        cur.execute("INSERT INTO {}(title,cost,year,month) VALUES(%s,%s,(Select Year(CURDATE())),(select month(CURDATE())))".format(table),(title,cost))
         #result = cur.execute("SELECT * FROM {} WHERE id=%s".format('articles'),[username])
         #Commit ot db
         mysql.connection.commit()
         result = cur.execute("SELECT * FROM {} where title=%s and year=(Select Year(CURDATE())) and month=(select month(CURDATE()))".format(table),[title])
         result = cur.fetchone()
+
         #Close connection
-        cur.close()
+        #cur.close()
     #return str(result)
-    return ('Затраты в текущем месяце на '+str(result['title'])+'= '+str(result['cost'])+' рублей')
+    #limit= cur.execute("SELECT * FROM limit where title=%s",[title])
+    if limit>0:
+        limits= cur.execute("SELECT * FROM limit_dict where title=%s",[title])
+        limits = cur.fetchone()
+
+        LimitSum= cur.execute("SELECT * FROM limit_dict where title=%s",['общий'])
+        limitsSum = cur.fetchone()
+        Sum=cur.execute("SELECT sum(cost) as summa FROM costs where year=(Select Year(CURDATE())) and month=(select month(CURDATE())) and title !=%s",['кредит'])
+        Sum = cur.fetchone()
+        testsum=str(limitsSum[str(limit_value)]-Sum['summa'])
+        if int(testsum)<10000/curs:
+            totallimit='Заканчивается общий лимит!!! Осталось ='+testsum+' '+currency
+        else:
+            totallimit=''
+        cur.close()
+        return ('Затраты в текущем месяце на '+str(result['title'])+'= '+str(result['cost'])+' '+currency+'. Лимит = '+str(result['limits'])+' '+currency+' '+totallimit)
+    else:
+        cur.close()
+        return ('Затраты в текущем месяце на '+str(result['title'])+'= '+str(result['cost'])+' '+currency)
 def main():
     #doc = bookings_coll.find_one()
 
